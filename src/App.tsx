@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {PhotoProps, Photo} from './Photo'
 
-export enum ApiStatus { Loading, Success, Error }
-
 interface IApiData {
-  status: ApiStatus,
   error: any,
   data: any,
 }
 
 export const useApi = (url: string, body = {}) => {
   const [data, setData] = useState<IApiData>({
-    status: ApiStatus.Loading,
     error: null,
     data: null,
   });
@@ -27,16 +22,13 @@ export const useApi = (url: string, body = {}) => {
         return response.json()
       })
       .then((data) => {
-        console.log('DATA:', data)
         setData({
-          status: ApiStatus.Success,
           error: null,
           data
         });
       })
       .catch((err: Error) => {
         setData({
-          status: ApiStatus.Error,
           data: null,
           error: err
         });
@@ -46,17 +38,20 @@ export const useApi = (url: string, body = {}) => {
 }
 
 function App() {
-  let { status, error, data } = useApi(`https://picsum.photos/v2/list`);
+  let { error, data } = useApi(`https://picsum.photos/v2/list`);
   
   return (
     <div className="App">
       <div>
       {
         data && data.map((photo: PhotoProps)  => {
-          return  <Photo id={photo.id} download_url={photo.download_url} />
+          return  <Photo key={photo.id} id={photo.id} download_url={photo.download_url} />
         })
       }
       </div>
+      {
+        error && <div>Error: {error}</div>
+      }
     </div>
   );
 }
