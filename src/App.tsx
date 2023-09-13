@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import {PhotoProps, Photo} from './Photo'
 
 export enum ApiStatus { Loading, Success, Error }
 
@@ -12,13 +12,13 @@ interface IApiData {
 }
 
 export const useApi = (url: string, body = {}) => {
-  const [data, setData] = React.useState<IApiData>({
+  const [data, setData] = useState<IApiData>({
     status: ApiStatus.Loading,
     error: null,
     data: null,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -41,7 +41,7 @@ export const useApi = (url: string, body = {}) => {
           error: err
         });
       });
-  });
+  }, []);
   return data;
 }
 
@@ -50,17 +50,13 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-
-      </header>
-
-<div>
-{
-  JSON.stringify(data)
-}
-</div>
+      <div>
+      {
+        data && data.map((photo: PhotoProps)  => {
+          return  <Photo id={photo.id} author={photo.author} width={'200px'} height={'133px'} url={photo.url} download_url={photo.download_url} />
+        })
+      }
+      </div>
 
     </div>
   );
