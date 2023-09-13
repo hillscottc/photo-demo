@@ -53,11 +53,10 @@ function App() {
       <div>
       {
         data && data.map((photo: PhotoProps)  => {
-          return  <Photo id={photo.id} author={photo.author} width={'200px'} height={'133px'} url={photo.url} download_url={photo.download_url} />
+          return  <Photo id={photo.id} download_url={photo.download_url} />
         })
       }
       </div>
-
     </div>
   );
 }

@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export type PhotoProps = {
   id: string,
-  author: string,
-  width: string,
-  height: string,
-  url: string,
   download_url: string,
 }
 
 export const Photo = ({
   id,
-  author,
-  width,
-  height,
-  url,
   download_url,
-}: PhotoProps) => (
-  <div>
-    <img src={download_url} width={width} height={height} alt="" />
-  </div>
-)
+}: PhotoProps) => {
+  const [big, setBig] = useState(false) 
+  return (
+    <div>
+      <img src={download_url} 
+      width={!big ? '200px' :'300px'} 
+      height={!big ? '133px' :'200px'} 
+      alt=""
+      onClick={() => setBig(!big)} 
+      />
+    </div>
+  )
+}
