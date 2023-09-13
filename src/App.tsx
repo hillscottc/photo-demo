@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import {PhotoProps, Photo} from './Photo'
 
-interface IApiData {
+interface iFetchData {
   error: any,
   data: any,
 }
 
-export const useApi = (url: string, body = {}) => {
-  const [data, setData] = useState<IApiData>({
+export const useFetchData = (url: string) => {
+  const [data, setData] = useState<iFetchData>({
     error: null,
     data: null,
   });
@@ -38,7 +38,7 @@ export const useApi = (url: string, body = {}) => {
 }
 
 function App() {
-  let { error, data } = useApi(`https://picsum.photos/v2/list`);
+  let { error, data } = useFetchData(`https://picsum.photos/v2/list`);
   
   return (
     <div className="App">
