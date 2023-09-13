@@ -11,13 +11,14 @@ export const Photo = ({
 }: PhotoProps) => {
   const [big, setBig] = useState(false) 
   return (
-    <div style={{padding: '20px'}}>
-      <img src={download_url} 
-      width={big ? '300px' :'200px'} 
-      height={big ? '200px' :'133px'} 
+    <div className='photoDiv'>
+      <img 
+      src={download_url} 
+      className={big ? 'photo_big' : 'photo'}
       alt=""
       onClick={() => setBig(!big)} 
       />
     </div>
   )
 }
+
